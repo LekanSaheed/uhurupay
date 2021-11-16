@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/context";
 import { baseUrl } from "../context/baseUrl";
 import CountUp from "react-countup";
+import toast from "react-hot-toast";
 const Wallet = () => {
   const [loading, setLoading] = useState(true);
   const [funds, setFunds] = useState(0);
@@ -39,15 +40,19 @@ const Wallet = () => {
               .map((i) => i.reduce((a, b) => a + b, 0))
               .reduce((a, b) => a + b, 0);
             setFunds(reducedFunds);
-            console.log(funds);
+
             setLoading(false);
+          } else {
+            toast.error(data.error);
           }
-        });
+        })
+        .catch((err) => console.log(err));
     });
   };
   useEffect(() => {
     fetchFunds();
   }, []);
+
   return (
     <div className={classes.wallet_container}>
       <div className={classes.wallet_header}>
