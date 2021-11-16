@@ -15,7 +15,7 @@ const Cards = () => {
   const [activePins, setActivePins] = useState([]);
 
   const fetchWeek = async () => {
-    const url = `${baseUrl}/info/week`;
+    const url = `${baseUrl}/info/revenues`;
     const token =
       typeof window !== "undefined" && localStorage.getItem("accessToken");
     if (!token) {
@@ -173,7 +173,7 @@ const Cards = () => {
       <ACard
         title="Total Collections"
         type="week"
-        detail="Last 7 days"
+        detail=""
         collection={weekInfo}
         loaading={loading}
       />
@@ -194,8 +194,11 @@ const Cards = () => {
       <ACard
         title="Collection Rate"
         type="rate"
-        detail="Last 7 days"
-        rate={collectionRate}
+        detail=""
+        rate={
+          weekInfo.reduce((a, b) => a + b.count, 0) /
+          activePins.reduce((a, b) => a + b, 0)
+        }
         loaading={loading}
       />
     </div>

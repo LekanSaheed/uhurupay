@@ -11,7 +11,7 @@ const ACard = ({
   payer,
 }) => {
   // Total Collection || Total active pins || Total Tax Payers \\ Collection rate
-  console.log(pin, "acard");
+
   if (loading) {
     return "loading";
   }
@@ -21,9 +21,14 @@ const ACard = ({
       <br />
       {type === "week" && (
         <span className={classes.figure}>
-          {collection.length > 0
-            ? collection.reduce((a, b) => a + b.amount, 0)
-            : "0"}
+          <CountUp
+            end={
+              collection.length > 0
+                ? collection.reduce((a, b) => a + b.count, 0)
+                : "0"
+            }
+            duration={1}
+          />
         </span>
       )}
       {type === "pins" && (
@@ -33,7 +38,17 @@ const ACard = ({
       )}
       {type === "rate" && (
         <span className={classes.figure}>
-          {rate.length > 0 ? rate.reduce((a, b) => a + b.amount, 0) : "0"}%
+          {/* {rate.length > 0
+            ? // ? rate.reduce((a, b) => a + b.count, 0) / pin &&
+              pin
+            : 0} */}
+          {rate
+            ? (rate * 100).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            : "0"}
+          %
         </span>
       )}
 
