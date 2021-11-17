@@ -92,7 +92,7 @@ const Form = () => {
               .catch((err) => {
                 setError(err.message);
                 setIsLoading(false);
-                toast.error(err.message);
+                toast.error(err);
               });
           }
           if (data.success === false) {
