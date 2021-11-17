@@ -39,6 +39,7 @@ const Form = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         username: username.trim().toLowerCase(),
