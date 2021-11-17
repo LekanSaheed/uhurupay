@@ -51,8 +51,8 @@ const Form = () => {
       await fetch(url, requestOptions)
         .then((res) => res.json())
         .then(async (data) => {
+          console.log(data);
           if (data.success) {
-            console.log(data);
             const token = data.token;
             const requestOptions = {
               method: "GET",
