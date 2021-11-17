@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import { Alert } from "@mui/material/";
 import { CgClose } from "react-icons/cg";
 import { Box } from "@mui/system";
+import { IconButton } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 
 const AddStakeholder = () => {
   const [name, setName] = useState("");
@@ -68,7 +70,7 @@ const AddStakeholder = () => {
           if (data.success) {
             const newRev = data.data.map((rev) => {
               return {
-                label: rev.title,
+                label: rev.title + " " + rev.revenue_id,
                 value: rev.revenue_id,
               };
             });
@@ -187,12 +189,12 @@ const AddStakeholder = () => {
     <>
       <form className={classes.form}>
         {modal && (
-          <Alert severity="success">
-            <Box display="flex" justifyContent="space-between">
-              {password}{" "}
-              <CgClose onClick={() => setModal(false)} size="small" />
-            </Box>
-          </Alert>
+          <Box display="flex" justifyContent="space-between">
+            <Alert severity="success">{password}</Alert>
+            <IconButton onClick={() => setModal(false)}>
+              <Close />
+            </IconButton>
+          </Box>
         )}
         <div className={classes.header}>
           <span>Add Stakeholder</span>
@@ -227,6 +229,8 @@ const AddStakeholder = () => {
                     placeholder="Phone"
                     onChange={(e) => setPhone(e.target.value)}
                     type="number"
+                    min={0}
+                    maxLength="14"
                   />
                   <label>
                     Phone number must start with country code e.g (234)

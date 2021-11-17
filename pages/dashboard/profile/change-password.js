@@ -44,18 +44,24 @@ const ChangePassword = () => {
             console.log(data.error);
           }
         })
-        .catch((err) => toast.error(err.message, "catch"));
+        .catch((err) => toast.error(err, "catch"));
     }
   };
+
   return (
     <ProfileWrapper>
-      {user.role !== "admin" && (
-        <Alert severity="info">
-          Note: You can change your password, but only your admin can reset your
-          password if you forget it
-        </Alert>
-      )}
+      {!user.role
+        ? ""
+        : user.role !== "admin" && (
+            <Alert severity="info">
+              Note: You can change your password, but only your admin can reset
+              your password if you forget it
+            </Alert>
+          )}
       <form className={classes.form}>
+        {confirmNewPassword && newPassword !== confirmNewPassword && (
+          <Alert severity="error">Password mismatch</Alert>
+        )}
         <div className={classes.input_container}>
           <label>Current Password</label>
           <input
@@ -69,7 +75,10 @@ const ChangePassword = () => {
           <input
             placeholder="New Password"
             value={newPassword}
-            onChange={(e) => setNewpassword(e.target.value)}
+            onChange={(e) => {
+              setNewpassword(e.target.value);
+            }}
+            minLength="6"
           />
         </div>
         <div className={classes.input_container}>
@@ -77,7 +86,10 @@ const ChangePassword = () => {
           <input
             placeholder="Confirm New Password"
             value={confirmNewPassword}
-            onChange={(e) => setConfirmNewpassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmNewpassword(e.target.value);
+            }}
+            minLength="6"
           />
         </div>
         <div className={classes.input_container}>

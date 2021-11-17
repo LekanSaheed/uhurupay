@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import ThemedProgress from "./ThemedProgress";
+import { Alert } from "@material-ui/lab";
 const Form = () => {
   const router = useRouter();
 
@@ -39,7 +40,10 @@ const Form = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username: username, password: password }),
+      body: JSON.stringify({
+        username: username.trim().toLowerCase(),
+        password: password,
+      }),
     };
     const url = `${baseUrl}/stakeholder/login`;
     const fetchDetails = async () => {
@@ -125,7 +129,7 @@ const Form = () => {
       >
         <span className={classes.formText}>Login to your dashboard</span>
       </motion.div>
-      <span style={{ color: "red" }}>{error}</span>
+      {error && <Alert severity="error">{error}</Alert>}
       <form className={classes.form}>
         <div
           style={{ padding: "10px", display: "flex", justifyContent: "center" }}

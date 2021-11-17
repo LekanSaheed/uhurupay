@@ -68,6 +68,7 @@ export default function AddRevenue() {
         amount: amount,
         comment: comment,
         category: category.value,
+        isPin: isPin,
       }),
     };
     await fetch(url, requestOptions)
@@ -86,6 +87,8 @@ export default function AddRevenue() {
       })
       .catch((err) => toast.error(err.message));
   };
+
+  console.log(isPin);
 
   return (
     <DashBoardWrapper>
@@ -142,10 +145,10 @@ export default function AddRevenue() {
                   name="isPin"
                   onChange={() => {
                     setIsPin(true);
-                    console.log(isPin);
                   }}
-                  value={true}
+                  value={isPin}
                   type="radio"
+                  checked={isPin}
                 />{" "}
                 Yes
               </label>
@@ -154,10 +157,9 @@ export default function AddRevenue() {
                 <input
                   onChange={() => {
                     setIsPin(false);
-                    console.log(isPin);
                   }}
                   name="isPin"
-                  value={false}
+                  value={!isPin}
                   type="radio"
                 />{" "}
                 No
