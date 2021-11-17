@@ -52,6 +52,7 @@ const Form = () => {
         .then((res) => res.json())
         .then(async (data) => {
           if (data.success) {
+            console.log(data);
             const token = data.token;
             const requestOptions = {
               method: "GET",
