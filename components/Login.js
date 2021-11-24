@@ -39,7 +39,6 @@ const Form = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
       },
       body: JSON.stringify({
         username: username.trim().toLowerCase(),
@@ -51,7 +50,6 @@ const Form = () => {
       await fetch(url, requestOptions)
         .then((res) => res.json())
         .then(async (data) => {
-          console.log(data);
           if (data.success) {
             const token = data.token;
             const requestOptions = {
@@ -92,7 +90,7 @@ const Form = () => {
               .catch((err) => {
                 setError(err.message);
                 setIsLoading(false);
-                toast.error(err);
+                toast.error(err.message);
               });
           }
           if (data.success === false) {

@@ -5,19 +5,23 @@ import Select from "react-select";
 import { state as stateOptions } from "./state";
 import { useGlobalContext } from "../context/context";
 import toast from "react-hot-toast";
-import { Alert } from "@mui/material/";
+import { Alert } from "@mui/material";
 import { CgClose } from "react-icons/cg";
 import { Box } from "@mui/system";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Button } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-
+import { Tab } from "@mui/material";
+import { TabContext } from "@material-ui/lab";
+import { TabList } from "@material-ui/lab";
+import { TabPanel } from "@material-ui/lab";
+import { makeStyles } from "@mui/styles";
 const AddStakeholder = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
-  const [role, setRole] = useState({});
+  const [role, setRole] = useState(null);
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [state, setState] = useState({});
+  const [state, setState] = useState(null);
   const [streams, setStream] = useState([]);
   const [loading, setLoading] = useState(false);
   const [revenues, setRevenues] = useState([]);
@@ -28,6 +32,13 @@ const AddStakeholder = () => {
   const [password, setPassword] = useState("");
   const [revCodes, setRevCodes] = useState([]);
   const [newStream, setNewStream] = useState([]);
+  const [tab, setTab] = useState("1");
+  const [comp_name, setCompName] = useState("");
+  const [comp_phone, setCompPhone] = useState("");
+  const [comp_email, setCompEmail] = useState("");
+  const [comp_username, setCompUsername] = useState("");
+  const [comp_address, setCompAddress] = useState("");
+  const [reg_no, setRegNo] = useState("");
   useEffect(() => {
     const accessToken =
       typeof window !== "undefined" && localStorage.getItem("accessToken");
@@ -185,8 +196,44 @@ const AddStakeholder = () => {
     return roleOptions;
   }
 
+  const handleTabs = (e, newVal) => {
+    setTab(newVal);
+  };
+
+  const addCompany = async () => {
+    const url = `${baseUrl}/stakeholder/register/company`;
+    const token =
+      typeof window !== "undefined" && localStorage.getItem("accessToken");
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name: comp_name,
+        phone: comp_phone,
+        address: comp_address,
+        email: comp_email,
+        username: comp_username,
+        reg_no: reg_no,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.success) {
+          toast.success("Company Registered Successfully");
+        } else {
+          toast.error(res.error);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <>
+    <TabContext value={tab}>
       <form className={classes.form}>
         {modal && (
           <Box display="flex" justifyContent="space-between">
@@ -196,109 +243,180 @@ const AddStakeholder = () => {
             </IconButton>
           </Box>
         )}
-        <div className={classes.header}>
-          <span>Add Stakeholder</span>
-        </div>
-        <div className={classes.group}>
-          <div className={classes.colrow}>
-            <div className={classes.columns}>
-              <div className={classes.column}>
-                <div className={classes.input_container}>
-                  <label>Name.</label>
-                  <input
-                    value={name}
-                    placeholder="Name"
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <label>Full Name e.g (John Doe Peters)</label>
-                </div>
-                <div className={classes.input_container}>
-                  <label>Username.</label>
-                  <input
-                    value={username}
-                    placeholder="User Name"
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className={classes.column}>
-                <div className={classes.input_container}>
-                  <label>Phone No.</label>
-                  <input
-                    value={phone}
-                    placeholder="Phone"
-                    onChange={(e) => setPhone(e.target.value)}
-                    type="number"
-                    min={0}
-                    maxLength="14"
-                  />
-                  <label>
-                    Phone number must start with country code e.g (234)
-                  </label>
-                </div>
-                <div className={classes.input_container}>
-                  <label>State.</label>
-                  <Select
-                    value={state}
-                    placeholder="Choose a State"
-                    onChange={handleState}
-                    options={newOptions}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <section className={classes.emailandrole}>
-              <div className={classes.input_container}>
-                <label>Email.</label>
-                <input
-                  value={email}
-                  placeholder="Email Address"
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                />
-              </div>
+        {user.role === "admin" ? (
+          <Box>
+            <TabList onChange={handleTabs}>
+              <Tab label="Add Stakeholder" value="1" />
+              <Tab label="Add Company" value="2" />
+            </TabList>
+          </Box>
+        ) : (
+          ""
+        )}
+        <TabPanel value="1" style={{ padding: "0 !important" }}>
+          <div className={classes.header}>
+            <span>Add Stakeholder</span>
+          </div>
+          <div className={classes.group}>
+            <div className={classes.colrow}>
               <div className={classes.columns}>
+                <div className={classes.column}>
+                  <div className={classes.input_container}>
+                    <label>Name.</label>
+                    <input
+                      value={name}
+                      placeholder="Name"
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                    <label>Full Name e.g (John Doe Peters)</label>
+                  </div>
+                  <div className={classes.input_container}>
+                    <label>Username.</label>
+                    <input
+                      value={username}
+                      placeholder="User Name"
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className={classes.column}>
+                  <div className={classes.input_container}>
+                    <label>Phone No.</label>
+                    <input
+                      value={phone}
+                      placeholder="Phone"
+                      onChange={(e) => setPhone(e.target.value)}
+                      type="number"
+                      min={0}
+                      maxLength="14"
+                    />
+                    <label>
+                      Phone number must start with country code e.g (234)
+                    </label>
+                  </div>
+                  <div className={classes.input_container}>
+                    <label>State.</label>
+                    <Select
+                      value={state}
+                      placeholder="Choose a State"
+                      onChange={handleState}
+                      options={newOptions}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <section className={classes.emailandrole}>
                 <div className={classes.input_container}>
-                  <label>Role.</label>
-                  <Select
-                    value={role}
-                    placeholder="Choose a Role"
-                    onChange={handleRole}
-                    options={roleOptions}
+                  <label>Email.</label>
+                  <input
+                    value={email}
+                    placeholder="Email Address"
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
                   />
-                  {/* <input
+                </div>
+                <div className={classes.columns}>
+                  <div className={classes.input_container}>
+                    <label>Role.</label>
+                    <Select
+                      value={role}
+                      placeholder="Choose a Role"
+                      onChange={handleRole}
+                      options={roleOptions}
+                    />
+                    {/* <input
                 value={role}
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
               /> */}
-                </div>
-                {user.role !== "admin" && (
-                  <div className={classes.input_container}>
-                    <label>Revenue Streams.</label>
-                    <Select
-                      value={streams.value}
-                      isMulti={true}
-                      onChange={handleStream}
-                      isSearchable={true}
-                      options={revenues.filter((rev) => {
-                        console.log(user.revenueStreams);
-                        return user.revenueStreams.includes(rev.value);
-                      })}
-                    />
                   </div>
-                )}
-              </div>
-            </section>
+                  {user.role !== "admin" && (
+                    <div className={classes.input_container}>
+                      <label>Revenue Streams.</label>
+                      <Select
+                        value={streams.value}
+                        isMulti={true}
+                        onChange={handleStream}
+                        isSearchable={true}
+                        options={revenues.filter((rev) => {
+                          console.log(user.revenueStreams);
+                          return user.revenueStreams.includes(rev.value);
+                        })}
+                      />
+                    </div>
+                  )}
+                </div>
+              </section>
+            </div>
+            <div></div>
           </div>
-          <div></div>
-        </div>
 
-        <button onClick={add}>
-          {loading ? "Registering..." : " Register Stakeholder"}
-        </button>
+          <button onClick={add}>
+            {loading ? "Registering..." : " Register Stakeholder"}
+          </button>
+        </TabPanel>
+        <TabPanel value="2" style={{ padding: "0 !important" }}>
+          Add Company
+          <div>
+            <div className={classes.input_container}>
+              <label>Company Name</label>
+              <input
+                value={comp_name}
+                placeholder="Name"
+                onChange={(e) => setCompName(e.target.value)}
+              />
+            </div>
+            <div className={classes.input_container}>
+              <label>Company Phone</label>
+              <input
+                value={comp_phone}
+                placeholder="Phone"
+                type="number"
+                onChange={(e) => setCompPhone(e.target.value)}
+              />
+            </div>
+            <div className={classes.input_container}>
+              <label>Company Email</label>
+              <input
+                value={comp_email}
+                placeholder="Email"
+                type="email"
+                onChange={(e) => setCompEmail(e.target.value)}
+              />
+            </div>
+            <div className={classes.input_container}>
+              <label>Username</label>
+              <input
+                value={comp_username}
+                placeholder="Username"
+                onChange={(e) => setCompUsername(e.target.value)}
+              />
+            </div>
+            <div className={classes.input_container}>
+              <label>Company Address</label>
+              <input
+                value={comp_address}
+                placeholder="Address"
+                onChange={(e) => setCompAddress(e.target.value)}
+              />
+            </div>
+            <div className={classes.input_container}>
+              <label>Registration No.</label>
+              <input
+                value={reg_no}
+                placeholder="Reg No."
+                type="number"
+                onChange={(e) => setRegNo(e.target.value)}
+              />
+            </div>
+            <Button onClick={addCompany} variant="contained" color="primary">
+              Add Company
+            </Button>
+          </div>
+        </TabPanel>
       </form>
-    </>
+    </TabContext>
   );
 };
 
