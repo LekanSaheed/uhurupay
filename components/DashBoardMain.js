@@ -31,7 +31,7 @@ const DashBoardMain = () => {
   return (
     <MainWrapper>
       <motion.div variants={contVariant}>
-        <TimeFilter />
+        {/* <TimeFilter /> */}
         <span className={classes.name}>
           Welcome {user !== null ? user.name : "USER"}
         </span>
