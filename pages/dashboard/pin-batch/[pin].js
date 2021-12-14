@@ -23,10 +23,6 @@ import { Box } from "@mui/system";
 import Image from "next/image";
 const Pin = () => {
   const router = useRouter();
-<<<<<<< HEAD
-=======
-
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
   const [pins, setPin] = useState([]);
   const [loading, setLoading] = useState(true);
   const { logout } = useGlobalContext();
@@ -56,10 +52,6 @@ const Pin = () => {
       .then((data) => {
         if (data.success && data.data.length > 0) {
           setPin(data.data);
-<<<<<<< HEAD
-=======
-
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
           setLoading(false);
           setTimeout(() => {
             window.print();
@@ -82,7 +74,6 @@ const Pin = () => {
 
   return (
     <>
-<<<<<<< HEAD
       {/* <div
         style={{
           background: "rgba(0,0,0, .8)",
@@ -98,8 +89,6 @@ const Pin = () => {
       >
         <CircularProgress />
       </div> */}
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       <Modal open={loading}>
         <div
           style={{
@@ -116,10 +105,6 @@ const Pin = () => {
           <CircularProgress />
         </div>
       </Modal>
-<<<<<<< HEAD
-
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       <Box paddingTop="10px" paddingBottom="10px">
         <Image src="/WORDMARK.png" height={70} width={300} />
       </Box>

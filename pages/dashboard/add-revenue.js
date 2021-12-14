@@ -1,18 +1,11 @@
 import DashBoardWrapper from "../../components/DashBoardWrapper";
 import { baseUrl } from "../../context/baseUrl";
-<<<<<<< HEAD
 import { useState, useEffect } from "react";
-=======
-import { useState } from "react";
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
 import Select from "react-select";
 import { useGlobalContext } from "../../context/context";
 import classes from "./add-revenue.module.css";
 import toast from "react-hot-toast";
-<<<<<<< HEAD
 import Link from "next/link";
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
 import {
   Button,
   FormControl,
@@ -21,28 +14,20 @@ import {
 } from "@material-ui/core";
 import { RadioGroup, Radio } from "@material-ui/core";
 import { Box } from "@mui/system";
-<<<<<<< HEAD
 import ThemedProgress from "../../components/ThemedProgress";
 import { PlusOne } from "@material-ui/icons";
 import { BiPlusCircle } from "react-icons/bi";
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
 export default function AddRevenue() {
   const { user, setUser } = useGlobalContext();
   const url = `${baseUrl}/revenue/new`;
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [comment, setComment] = useState("");
-<<<<<<< HEAD
   const [category, setCategory] = useState(null);
   const [isPin, setIsPin] = useState(true);
   const [bank, setBank] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBank, setSelectedBank] = useState("");
-=======
-  const [category, setCategory] = useState({});
-  const [isPin, setIsPin] = useState(true);
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
   const options = [
     { label: "Transport", value: "transport" },
     { label: "Waste", value: "waste" },
@@ -54,7 +39,6 @@ export default function AddRevenue() {
   ];
   const token = process.browser && localStorage.getItem("accessToken");
 
-<<<<<<< HEAD
   useEffect(() => {
     const fetchAccounts = async () => {
       await fetch(`${baseUrl}/accounts/list`, {
@@ -84,9 +68,6 @@ export default function AddRevenue() {
 
   const fetchUser = async () => {
     setLoading(true);
-=======
-  const fetchUser = async () => {
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
     const token =
       typeof window !== "undefined" && localStorage.getItem("accessToken");
     const url = `${baseUrl}/stakeholder/me`;
@@ -100,7 +81,6 @@ export default function AddRevenue() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-<<<<<<< HEAD
           setLoading(false);
           console.log(data.data);
           setUser(data.data);
@@ -110,22 +90,12 @@ export default function AddRevenue() {
         }
       })
       .catch((err) => console.log(err));
-=======
-          setUser(data.data);
-        } else {
-          toast.error(data.error);
-        }
-      });
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
   };
   const handleCategory = (category) => {
     setCategory(category);
   };
   const addRevenue = async (e) => {
-<<<<<<< HEAD
     setLoading(true);
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
     e.preventDefault();
     const requestOptions = {
       method: "POST",
@@ -140,33 +110,23 @@ export default function AddRevenue() {
         comment: comment,
         category: category.value,
         isPin: isPin,
-<<<<<<< HEAD
         settlementAccount: selectedBank.value !== null && selectedBank.value,
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       }),
     };
     await fetch(url, requestOptions)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-<<<<<<< HEAD
           setLoading(false);
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
           toast.success("Revenue created successfully.");
           setAmount("");
           setCategory({});
           setTitle("");
-<<<<<<< HEAD
           setSelectedBank("");
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
           setComment("");
           fetchUser();
         } else {
           toast.error(data.error);
-<<<<<<< HEAD
           setLoading(false);
         }
       })
@@ -185,17 +145,6 @@ export default function AddRevenue() {
   return (
     <DashBoardWrapper>
       {loading && <ThemedProgress />}
-=======
-        }
-      })
-      .catch((err) => toast.error(err.message));
-  };
-
-  console.log(isPin);
-
-  return (
-    <DashBoardWrapper>
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       <form className={classes.form}>
         <header className={classes.form_header}>
           <div className={classes.main_text}>Add Revenue</div>
@@ -278,7 +227,6 @@ export default function AddRevenue() {
               onChange={(e) => setComment(e.target.value)}
             />
           </div> */}
-<<<<<<< HEAD
           <div
             className={classes.input_container}
             style={{ marginTop: "20px" }}
@@ -312,17 +260,11 @@ export default function AddRevenue() {
               </Button>
             </Link>
           </div>
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
         </div>
         <Button
           size="large"
           color="primary"
-<<<<<<< HEAD
           disabled={!title || !selectedBank || !amount || !category}
-=======
-          disabled={(!title, !amount, Object.entries(category).length < 1)}
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
           onClick={addRevenue}
           variant="contained"
         >

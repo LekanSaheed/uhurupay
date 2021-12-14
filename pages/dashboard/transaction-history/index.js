@@ -1,7 +1,6 @@
 import DashboardWrapper from "../../../components/DashBoardWrapper";
 import ThemedProgress from "../../../components/ThemedProgress";
 import * as React from "react";
-<<<<<<< HEAD
 import {
   DataGrid,
   gridClasses,
@@ -13,30 +12,17 @@ import { baseUrl } from "../../../context/baseUrl";
 import { useState, useEffect } from "react";
 import moment from "moment";
 
-=======
-import { DataGrid } from "@mui/x-data-grid";
-import { makeStyles } from "@material-ui/core";
-import { baseUrl } from "../../../context/baseUrl";
-import { useState, useEffect } from "react";
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
 const History = () => {
   const [revenues, setRevenues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState(1);
   const transactions = [];
   const [tranxRow, setTranxRow] = useState([]);
-<<<<<<< HEAD
   const [allRev, setAllRev] = useState([]);
   const token =
     typeof window !== "undefined" && localStorage.getItem("accessToken");
   const fetchHistory = async () => {
     const url = `${baseUrl}/collections/all/history`;
-=======
-  const token =
-    typeof window !== "undefined" && localStorage.getItem("accessToken");
-  const fetchHistory = async (revenueId) => {
-    const url = `${baseUrl}/collections/${revenueId}/history?page=${pagination}&limit=13`;
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
     await fetch(url, {
       method: "GET",
       headers: {
@@ -45,34 +31,12 @@ const History = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-<<<<<<< HEAD
         console.log(data.data[0].paginatedResult);
         if (data.success) {
           setTranxRow(data.data[0].paginatedResult);
         }
       })
       .catch((err) => console.log(err));
-=======
-        if (data.success) {
-          data.data
-            .filter((res) => res.paginatedResult.length > 0)
-            .map((res) => res.paginatedResult)
-            .map((t) => {
-              transactions.push(t);
-              console.log(t, "gg");
-            });
-          var merged = [].concat.apply([], transactions);
-          setTranxRow(
-            merged.map((t, id) => {
-              return {
-                ...t,
-                id: id,
-              };
-            })
-          );
-        }
-      });
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
   };
   const fetchRevenue = async () => {
     const requestOptions = {
@@ -87,16 +51,7 @@ const History = () => {
       .then((data) => {
         if (data.success) {
           setRevenues(data.data);
-<<<<<<< HEAD
           setLoading(false);
-=======
-
-          setLoading(false);
-          const revs = data.data;
-          revs.forEach((rev) => {
-            fetchHistory(rev.revenue_id);
-          });
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
         } else {
           setLoading(false);
           console.log(data.error);
@@ -106,7 +61,6 @@ const History = () => {
   };
   useEffect(() => {
     fetchRevenue();
-<<<<<<< HEAD
     fetchRev();
     fetchHistory();
   }, []);
@@ -165,20 +119,11 @@ const History = () => {
     {
       field: "id",
       headerName: "S/N",
-=======
-  }, []);
-
-  const columns = [
-    {
-      field: "id",
-      headerName: "ID",
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       width: 90,
       headerClassName: "header",
       cellClassName: "cell",
     },
     {
-<<<<<<< HEAD
       field: "name",
       headerName: "Name",
       width: 150,
@@ -187,8 +132,6 @@ const History = () => {
       cellClassName: "cell",
     },
     {
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       field: "revenue",
       headerName: "Revenue",
       width: 150,
@@ -221,11 +164,7 @@ const History = () => {
       editable: true,
     },
     {
-<<<<<<< HEAD
       field: "created_by",
-=======
-      field: "agent",
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       headerName: "Agent/Collector",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
@@ -234,11 +173,7 @@ const History = () => {
       cellClassName: "cell",
     },
     {
-<<<<<<< HEAD
       field: "updated_at",
-=======
-      field: "created_At",
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       headerName: "Date",
       sortable: false,
       width: 160,
@@ -260,7 +195,6 @@ const History = () => {
       return t;
     });
 
-<<<<<<< HEAD
   const customTool = () => {
     return (
       <GridToolbarContainer className={gridClasses.toolbarContainer}>
@@ -268,40 +202,6 @@ const History = () => {
       </GridToolbarContainer>
     );
   };
-=======
-  const rows = [
-    {
-      id: 1,
-      revenue: "Taxi (T-653)",
-      amount: 350,
-      category: "Transport",
-      payer: "Mc Oluomo",
-      agent: "Tade",
-      date: "10 jan 1856",
-      payerDetails: "Huy-d6",
-    },
-    {
-      id: 2,
-      revenue: "School Fees (SF-653)",
-      amount: 330,
-      category: "education",
-      payer: "Samuel olotu",
-      agent: "Sola",
-      date: "10 jan 1956",
-      payerDetails: "96618256BB",
-    },
-    {
-      id: 3,
-      revenue: "Boli (B-653)",
-      amount: 250,
-      category: "Market",
-      payer: "Mummy Shayo",
-      agent: "Tunde",
-      date: "20 Feb 2056",
-      payerDetails: "09019724567",
-    },
-  ];
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
   const useStyles = makeStyles({
     root: {
       backgroundColor: "#fff",
@@ -309,10 +209,7 @@ const History = () => {
       "& .header": {
         color: "#4bc2bc",
         fontWeight: "700",
-<<<<<<< HEAD
         fontFamily: "brFirma",
-=======
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
       },
       "& .cell": {
         borderBottom: "solid 1px whitesmoke",
@@ -330,7 +227,6 @@ const History = () => {
   return (
     <DashboardWrapper>
       <div className={classes.background}>
-<<<<<<< HEAD
         {loading && <ThemedProgress />}
         <div style={{ height: "70vh", width: "100%" }}>
           <DataGrid
@@ -361,18 +257,6 @@ const History = () => {
             checkboxSelection
             disableSelectionOnClick
             loading={loading}
-=======
-        <ThemedProgress />
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid
-            className={classes.root}
-            rows={tranxRow}
-            columns={columns}
-            pageSize={tranxRow.length}
-            rowsPerPageOptions={[5, 10, 20]}
-            checkboxSelection
-            disableSelectionOnClick
->>>>>>> 1cbcd2541829a04a1e3540855c390a0ee70731a5
           />
         </div>
       </div>
