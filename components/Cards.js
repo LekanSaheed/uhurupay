@@ -117,7 +117,6 @@ const Cards = (props) => {
         toast.error("Error Fetching Data: " + err.message);
       });
   };
-
   const fetchActivePins = async () => {
     const codes = user.revenueStreams;
     codes.forEach(async (code) => {
