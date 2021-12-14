@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  width: 100%;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+.main {
+  background-color: #fff;
+  width: 100%;
+  min-height: 100%;
+}
+.side_nav {
+  height: 100vh;
+  background-color: #f4f6f8;
+
+  color: rgba(0, 0, 0, 0.794);
+}
+.showMobileNav {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
+}
+.hideMobileNav {
+  width: 0%;
+  height: 0;
+  position: fixed;
+  top: -20px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: all 0.3s ease-in-out;
+}
+@media (min-width: 767px) {
+  .container {
+    flex-direction: row;
+  }
+  .side_nav {
+    flex: 1 1 20%;
+    height: 100vh;
+    float: left;
+    width: 280px;
+    position: fixed;
+    transition: 0.4s ease-in-out;
+  }
+  .main {
+    flex: 1 1 80%;
+    min-height: 100%;
+    margin-left: 280px;
+    min-width: 500px;
+    transition: 0.4s ease-in-out;
+  }
+  .shrink_main {
+    margin-left: 100px;
+    transition: 0.4s ease-in-out;
+  }
+  .shrink_nav {
+    width: 100px;
+    transition: 0.4s ease-in-out;
+  }
+  .hideMobileNav {
+    top: 0px;
+  }
+}
