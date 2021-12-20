@@ -147,3 +147,26 @@
 .link_hover:hover {
   color: black !important;
 }
+.asideLink:hover {
+  background-color: silver !important;
+}
+@media (max-width: 767px) {
+  .link_flex {
+    font-size: 11px;
+  }
+
+  .asideLink {
+    font-size: 11px;
+  }
+  .dropdown span {
+    font-size: 11px;
+  }
+  .showText {
+    font-size: 11px !important;
+  }
+  .asideContainer {
+    gap: 0;
+    height: 100%;
+    line-height: 40px;
+  }
+}

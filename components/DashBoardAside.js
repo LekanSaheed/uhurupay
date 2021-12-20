@@ -191,8 +191,18 @@ const DashBoardAside = () => {
       </ul>
 
       <footer className={classes.asideFooter}>
-        <div>
-          <Image width={220} height={50} src="/WORDMARK.png" alt="upay" />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {isToggled ? (
+            <Image src="/favicon.ico" width={30} height={30} alt="upay" />
+          ) : (
+            <Image width={220} height={50} src="/WORDMARK.png" alt="upay" />
+          )}
         </div>
       </footer>
     </div>

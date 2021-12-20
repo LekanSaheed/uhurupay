@@ -12,35 +12,19 @@
 .side_nav {
   height: 100vh;
   background-color: #f4f6f8;
-
+  display: none;
   color: rgba(0, 0, 0, 0.794);
 }
-.showMobileNav {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  transition: all 0.3s ease-in-out;
-  z-index: 100;
+.mobile_nav {
 }
-.hideMobileNav {
-  width: 0%;
-  height: 0;
-  position: fixed;
-  top: -20px;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  transition: all 0.3s ease-in-out;
+.showMobileNav {
 }
 @media (min-width: 767px) {
   .container {
     flex-direction: row;
   }
   .side_nav {
+    display: block;
     flex: 1 1 20%;
     height: 100vh;
     float: left;
@@ -63,7 +47,12 @@
     width: 100px;
     transition: 0.4s ease-in-out;
   }
-  .hideMobileNav {
-    top: 0px;
+  .mobile_nav {
+    display: none;
+  }
+}
+@media (min-width: 801px) {
+  .showMobileNav {
+    display: none;
   }
 }

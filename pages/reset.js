@@ -4,9 +4,12 @@ import { baseUrl } from "../context/baseUrl";
 import classes from "./reset.module.css";
 import Image from "next/image";
 import link from "next/link";
+import { LinearProgress } from "@material-ui/core";
 const Reset = () => {
   const [email, setEmail] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const resetPass = async (e) => {
+    setLoading(true);
     e.preventDefault();
     await fetch(`${baseUrl}/stakeholder/reset/mail`, {
       method: "POST",
@@ -21,18 +24,23 @@ const Reset = () => {
       .then((data) => {
         console.log(data);
         if (data.success) {
+          setLoading(false);
+          setEmail("");
           toast.success(data.message);
         } else {
+          setLoading(false);
           toast.error(data.error);
         }
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   };
   return (
     <div className={classes.container}>
       <form className={classes.form}>
+        {loading && <LinearProgress />}
         <div className={classes.header}>
           <Image src="/WORDMARK.png" height={50} width={200} />
         </div>
@@ -43,6 +51,7 @@ const Reset = () => {
         <label>Email</label>
         <div className={classes.input_container}>
           <input
+            type="email"
             value={email}
             placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -50,7 +59,7 @@ const Reset = () => {
         </div>
         <button onClick={resetPass}>Continue</button>
       </form>
-      <div>
+      <div style={{ fontSize: "11px" }}>
         &copy; {new Date().getFullYear().toString()} Uhurupay. All rights
         reserved
       </div>

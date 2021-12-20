@@ -14,7 +14,7 @@ const Cards = (props) => {
   const myPin = [];
   const [taxPayers, setTaxPayers] = useState([]);
   const [collectionRate, setCollectionRate] = useState([]);
-  const { user } = useGlobalContext();
+  const { user, logout } = useGlobalContext();
   const [activePins, setActivePins] = useState([]);
   const [filterTrans, setFilterTrans] = useState([]);
 

@@ -7,6 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
+  box-shadow: 0 2px 4px rgba(0 0 0 /5%);
 }
 .path_container {
   display: flex;
@@ -17,11 +18,17 @@
 }
 
 .icon {
-  font-size: 16px;
+  font-size: 26px;
   color: #5e6278;
   padding: 6px 5px 8px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+.mobile_menu {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .icon:hover {
   background-color: #f2f4f4;
@@ -60,7 +67,7 @@
     box-sizing: border-box;
   }
   .icon {
-    font-size: 14px;
+    font-size: 25px;
   }
 }
 @media (min-width: 767px) {
@@ -72,15 +79,21 @@
   }
   .dash_header {
     padding: 18px;
+    box-shadow: 0;
   }
   .icon {
-    font-size: 22px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .mobile_menu {
     display: none;
   }
   .lg_menu {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

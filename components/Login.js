@@ -98,6 +98,11 @@ const Form = () => {
             setError(data.error);
             setIsLoading(false);
           }
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          toast.error(err.message);
         });
     };
     fetchDetails();
@@ -111,7 +116,7 @@ const Form = () => {
     <div className={classes.login_container}>
       {isLoading && <ThemedProgress />}
 
-      <motion.div
+      {/* <motion.div
         animate="visible"
         initial="hidden"
         variants={{
@@ -129,13 +134,13 @@ const Form = () => {
         }}
       >
         <span className={classes.formText}>Login to your dashboard</span>
-      </motion.div>
+      </motion.div> */}
       {error && <Alert severity="error">{error}</Alert>}
       <form className={classes.form}>
         <div
           style={{ padding: "10px", display: "flex", justifyContent: "center" }}
         >
-          <Image width={200} height={50} src="/WORDMARK.png" alt="Upay logo" />
+          <Image width={230} height={50} src="/WORDMARK.png" alt="Upay logo" />
         </div>
         <div className={classes.input_container}>
           <label>Username</label>

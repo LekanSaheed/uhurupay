@@ -55,6 +55,11 @@
 .input_container:focus-within {
   outline: solid 1px #4bc2bc;
 }
+@media (max-width: 320px) {
+  .form {
+    width: 97%;
+  }
+}
 @media (min-width: 1024px) {
   .form {
     width: 400px;

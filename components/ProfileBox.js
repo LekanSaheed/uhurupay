@@ -5,6 +5,8 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Avatar, Chip } from "@material-ui/core";
+import { BsPatchCheckFill } from "react-icons/bs";
 const ProfileBox = () => {
   const {
     user,
@@ -50,7 +52,23 @@ const ProfileBox = () => {
                 {user !== null && user.name !== undefined ? user.name : null}
               </div>
               <div className={classes.role}>
-                {user !== null && user.role !== undefined && user.role}
+                {user !== null && user.role !== undefined && (
+                  <Chip
+                    avatar={
+                      <Avatar
+                        style={{
+                          background: "#fff",
+
+                          fontSize: "1rem",
+                        }}
+                      >
+                        <BsPatchCheckFill style={{ color: "#4bc2bc" }} />
+                      </Avatar>
+                    }
+                    label={user.role}
+                    size="small"
+                  />
+                )}
               </div>
             </motion.div>
             {/* <div>
@@ -59,13 +77,6 @@ const ProfileBox = () => {
           </>
         </div>
       </Link>
-      <span
-        className={classes.closeBar}
-        onClick={() => dispatch({ type: "TOGGLE_MOBILE_NAV" })}
-      >
-        {" "}
-        {isToggledMobileNav && "Close"}
-      </span>
     </>
   );
 };

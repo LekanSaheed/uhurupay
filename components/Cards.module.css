@@ -33,11 +33,19 @@
 
 @media (min-width: 767px) {
   .cardContainer {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
   }
   .cards {
     flex: 1 1 50%;
-    width: 50%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 901px) {
+  .cardContainer {
+    display: flex;
+    flex-direction: row;
   }
 }
 @media (min-width: 1124px) {
