@@ -40,6 +40,7 @@ const Reset = () => {
   return (
     <div className={classes.container}>
       <form className={classes.form}>
+        {loading && <LinearProgress />}
         <div className={classes.header}>
           <div className={classes.inst}>
             Enter the email associated with your account and we will send you a
