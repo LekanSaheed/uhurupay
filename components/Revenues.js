@@ -30,8 +30,30 @@ const Revenues = () => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const useStyle = makeStyles((theme) => ({
+    tabs: {},
     root: {
+      padding: "0",
+      "& .MuiTabs-flexContainer": {
+        gap: "10px",
+      },
+      "& .css-cjctlb-MuiButtonBase-root-MuiTab-root": {
+        fontFamily: "brFirma",
+        fontWeight: "bolder",
+      },
+      fontFamily: "brFirma",
       marginTop: "20px",
+      "& .MuiTableCell-root": {
+        lineHeight: 1.2,
+        fontFamily: "brFirma",
+        fontSize: "0.65em",
+        padding: "7px",
+      },
+      "& .MuiTableCell-head": {
+        fontFamily: "brFirma !important",
+        fontSize: "0.7em !important",
+        fontWeight: "bolder !important",
+        padding: "10px",
+      },
     },
     pending: {
       color: "goldenrod !important",
@@ -42,13 +64,16 @@ const Revenues = () => {
     rejected: {
       color: "red !important",
     },
+    progress: {
+      color: "#4bc2bc",
+    },
   }));
   const classes = useStyle();
 
   const [loading, setLoading] = useState(true);
   const [revenues, setRevenues] = useState([]);
   const [value, setValue] = React.useState("1");
-  const { logout } = useGlobalContext();
+  const { logout, user } = useGlobalContext();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -92,15 +117,17 @@ const Revenues = () => {
   return (
     <section>
       <span>All Revenues</span>
-      <EditRevenue
-        open={open}
-        setOpen={setOpen}
-        selected={selected}
-        setSelected={setSelected}
-        fetchRev={fetchRevenues}
-      />
+      {user.role !== "admin" && (
+        <EditRevenue
+          open={open}
+          setOpen={setOpen}
+          selected={selected}
+          setSelected={setSelected}
+          fetchRev={fetchRevenues}
+        />
+      )}
       <Box sx={{ width: "100%", typography: "body1" }}>
-        <TabContext value={value}>
+        <TabContext value={value} className={classes.root}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
               <Tab label="Revenues" value="1" />
@@ -108,10 +135,10 @@ const Revenues = () => {
             </TabList>
           </Box>
           {loading && <ThemedProgress />}
-          <TabPanel value="1">
-            <TableContainer className={classes.root} component={TableComponent}>
+          <TabPanel sx={{ padding: "0 !important" }} value="1">
+            <TableContainer className={classes.root} component={Paper}>
               <Table sx={{ minWidth: 650 }}>
-                <TableHead>
+                <TableHead sx={{ position: "sticky", top: "0" }}>
                   <TableRow>
                     <TableCell />
                     <TableCell component="th" scope="row">
@@ -138,14 +165,16 @@ const Revenues = () => {
                               revenue={revenue}
                               edit={
                                 <TableCell>
-                                  <Button
-                                    onClick={async () => {
-                                      await setSelected(revenue);
-                                      setOpen(true);
-                                    }}
-                                  >
-                                    <FiEdit />
-                                  </Button>
+                                  {user.role !== "admin" && (
+                                    <Button
+                                      onClick={async () => {
+                                        await setSelected(revenue);
+                                        setOpen(true);
+                                      }}
+                                    >
+                                      <FiEdit />
+                                    </Button>
+                                  )}
                                 </TableCell>
                               }
                             />
@@ -159,7 +188,7 @@ const Revenues = () => {
 
           <TabPanel value="2">
             {" "}
-            <TableContainer className={classes.root} component={TableComponent}>
+            <TableContainer className={classes.root} component={Paper}>
               <Table sx={{ minWidth: 650 }}>
                 <TableHead>
                   <TableRow>
@@ -175,13 +204,16 @@ const Revenues = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {revenues
-                    ? revenues
-                        .filter((i) => i.status === "rejected")
-                        .map((revenue) => {
-                          return <Row key={revenue._id} revenue={revenue} />;
-                        })
-                    : "Rejected revenues will appear here"}
+                  {revenues &&
+                    revenues
+                      .filter((i) => i.status === "rejected")
+                      .map((revenue) => {
+                        return <Row key={revenue._id} revenue={revenue} />;
+                      })}
+                  {revenues &&
+                    revenues.filter((i) => i.status === "rejected").length <
+                      1 &&
+                    "Rejected revenues will appear here"}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -202,7 +234,7 @@ const Revenues = () => {
             bottom: "0",
           }}
         >
-          <CircularProgress />
+          <CircularProgress size={25} className={classes.progress} />
         </div>
       )}
     </section>

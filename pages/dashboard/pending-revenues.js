@@ -27,6 +27,11 @@ const PendingRevenues = () => {
   const useStyle = makeStyles((theme) => ({
     root: {
       marginTop: "20px",
+      "& .MuiTableCell-head": {
+        fontFamily: "brFirma",
+        fontSize: "0.65em",
+        fontWeight: "bolder",
+      },
     },
     pending: {
       color: "goldenrod !important",
@@ -42,6 +47,9 @@ const PendingRevenues = () => {
     },
     reject: {
       backgroundColor: "red",
+    },
+    progress: {
+      color: "#4bc2bc",
     },
   }));
   const classes = useStyle();
@@ -152,7 +160,7 @@ const PendingRevenues = () => {
   return (
     <DashBoardWrapper>
       <section>
-        <span>All Revenues</span>
+        <span>Pending Revenues</span>
         <Modal open={modal}>
           <Dialog open={modal} fullWidth={true}>
             <DialogContent>
@@ -188,7 +196,7 @@ const PendingRevenues = () => {
         </Modal>
         <TableContainer className={classes.root} component={Paper}>
           <Table sx={{ minWidth: 650 }}>
-            <TableHead>
+            <TableHead sx={{ position: "sticky", top: "0" }}>
               <TableRow>
                 <TableCell component="th" scope="row">
                   Title
@@ -279,7 +287,32 @@ const PendingRevenues = () => {
               bottom: "0",
             }}
           >
-            <CircularProgress />
+            <CircularProgress size={30} className={classes.progress} />
+          </div>
+        )}
+        {!loading && revenues.length < 1 && (
+          <div
+            style={{
+              width: "100%",
+              padding: "20px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {/* <span
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                marginBottom: "10px",
+              }}
+            >
+              No Pending Revenue
+            </span> */}
+            <img
+              style={{ width: "40%", opacity: "0.4" }}
+              src="/norevenue.svg"
+            />
           </div>
         )}
       </section>
