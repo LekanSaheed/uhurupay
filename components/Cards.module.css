@@ -43,9 +43,17 @@
 }
 
 @media (min-width: 901px) {
+  .cards {
+    height: 60%;
+  }
   .cardContainer {
     display: flex;
     flex-direction: row;
+  }
+}
+@media (min-width: 1024px) {
+  .cardContainer {
+    width: 70%;
   }
 }
 @media (min-width: 1124px) {
