@@ -2,6 +2,7 @@ import classes from "./Wallet.module.css";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/context";
 import { baseUrl } from "../context/baseUrl";
+import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import toast from "react-hot-toast";
 const Wallet = () => {
@@ -32,7 +33,13 @@ const Wallet = () => {
             // console.log(data);
             const filtered = data.data
               .filter((batch) => batch.isDispatched)
-              .map((batch) => (batch.amount - batch.discount) * batch.size);
+              .map((batch) => {
+                if (batch.discount) {
+                  return (batch.amount - batch.discount) * batch.size;
+                } else {
+                  return batch.amount * batch.size;
+                }
+              });
             // .reduce((a, b) => a + b, 0);
 
             batches.push(filtered);
@@ -40,6 +47,9 @@ const Wallet = () => {
               .map((i) => i.reduce((a, b) => a + b, 0))
               .reduce((a, b) => a + b, 0);
             setFunds(reducedFunds);
+            // console.log(reducedFunds);
+            // console.log(filtered, "filtered");
+            // console.log(data.data, "data");
 
             setLoading(false);
           } else {
@@ -53,8 +63,23 @@ const Wallet = () => {
     fetchFunds();
   }, []);
 
+  const variants = {
+    hidden: {
+      opacity: 0,
+      x: 30,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+    },
+  };
   return (
-    <div className={classes.wallet_container}>
+    <motion.div
+      variants={variants}
+      animate="visible"
+      initial="hidden"
+      className={classes.wallet_container}
+    >
       <div className={classes.wallet_header}>
         <span style={{ fontWeight: "600" }}>Funds</span>{" "}
       </div>
@@ -78,7 +103,7 @@ const Wallet = () => {
         </div>
         <span className="icon-Mailbox" data-icon="&#xe001"></span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Wallet;
