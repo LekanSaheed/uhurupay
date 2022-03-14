@@ -172,7 +172,7 @@ const Form = () => {
             />
 
             <span onClick={() => setType(!type)} className={classes.vis_toggle}>
-              {type ? <AiFillEyeInvisible /> : <AiFillEye />}
+              {type ? <AiFillEye /> : <AiFillEyeInvisible />}
             </span>
           </div>
         </div>
@@ -185,9 +185,7 @@ const Form = () => {
           onClick={login}
         >
           {isLoading ? (
-            <span className={classes.spinner}>
-              <AiOutlineLoading3Quarters />
-            </span>
+            <AiOutlineLoading3Quarters className={classes.spinner} />
           ) : (
             "Login to your Dashboard"
           )}

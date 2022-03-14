@@ -34,6 +34,7 @@ export default function AddRevenue() {
     { label: "Street Naming", value: "street_naming" },
     { label: "Tenement Rate", value: "tenement_rate" },
     { label: "Toll Gate", value: "toll_gate" },
+    { label: "Lottery", value: "lottery" },
     { label: "School Collection", value: "school_collection" },
     { label: "Market", value: "market" },
   ];
@@ -50,7 +51,7 @@ export default function AddRevenue() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log(data);
+            // console.log(data);
             setBank(data.data);
             setLoading(false);
           } else {
@@ -82,7 +83,6 @@ export default function AddRevenue() {
       .then((data) => {
         if (data.success) {
           setLoading(false);
-          console.log(data.data);
           setUser(data.data);
         } else {
           toast.error(data.error);
@@ -128,10 +128,11 @@ export default function AddRevenue() {
         } else {
           toast.error(data.error);
           setLoading(false);
+          console.log("Error here");
         }
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error(err, "Line 135");
         setLoading(false);
       });
   };

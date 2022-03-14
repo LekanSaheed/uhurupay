@@ -15,9 +15,7 @@ const DashBoardWrapper = ({ children }) => {
         <DashBoardAside />
       </motion.aside>
       <div className={` ${classes.showMobileNav}`}>
-        <MobileMenu>
-          <DashBoardAside />
-        </MobileMenu>
+        <MobileMenu></MobileMenu>
       </div>
       <main
         className={`${classes.main} ${isToggled ? classes.shrink_main : ""}`}

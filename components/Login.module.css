@@ -34,6 +34,7 @@
 .input_container {
   width: 100%;
   margin-bottom: 20px;
+  position: relative;
 }
 .input_container input:focus > .input_flex {
   border-color: teal;
@@ -107,6 +108,11 @@
 .vis_toggle {
   cursor: pointer;
   font-size: 23px;
+  position: absolute;
+  right: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .formText {
@@ -221,7 +227,7 @@
   }
   .vis_toggle {
     cursor: pointer;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     font-size: 26px;
   }
 }

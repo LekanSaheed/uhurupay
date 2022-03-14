@@ -92,7 +92,7 @@ const AllStakeHolders = () => {
   };
   const [stakerCreatedRevenues, setStakerCreatedRevenues] = useState([]);
 
-  console.log(stakerCreatedRevenues, "gg");
+  // console.log(stakerCreatedRevenues, "gg");
   const handleRevenueChanges = (change) => {
     setNewRevenues(change);
     handleChanges({
@@ -135,10 +135,10 @@ const AllStakeHolders = () => {
     await fetch(`${baseUrl}/stakeholder/company/list`, requestOptions)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           setCompanies(data.data);
-          console.log(data);
+          // console.log(data);
         } else {
           user.role === "admin" && toast.error(data.error);
         }
@@ -156,7 +156,7 @@ const AllStakeHolders = () => {
     await fetch(url, requestOptions)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         if (data.success) {
           fetchRevenues();
           setStakeholders(data.data);

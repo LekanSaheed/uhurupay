@@ -222,7 +222,7 @@ const AddStakeholder = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success) {
           toast.success("Company Registered Successfully");
         } else {
@@ -340,7 +340,7 @@ const AddStakeholder = () => {
                         onChange={handleStream}
                         isSearchable={true}
                         options={revenues.filter((rev) => {
-                          console.log(user.revenueStreams);
+                          // console.log(user.revenueStreams);
                           return user.revenueStreams.includes(rev.value);
                         })}
                       />

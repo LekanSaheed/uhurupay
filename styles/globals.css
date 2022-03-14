@@ -79,3 +79,6 @@ a {
 * {
   box-sizing: border-box;
 }
+.bold {
+  font-weight: 600;
+}

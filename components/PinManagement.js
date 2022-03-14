@@ -96,7 +96,7 @@ const PinManagement = () => {
   };
   return (
     <div>
-      Pin Management
+      <div className="bold">Pin Management</div>
       <form className={classes.form}>
         <div className={classes.group}>
           {loading && <ThemedProgress />}

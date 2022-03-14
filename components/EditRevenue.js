@@ -21,7 +21,7 @@ const EditRevenue = ({ open, selected, setOpen, fetchRev, setSelected }) => {
   // const [loading, setLoading] = useState(false);
   const [bank, setBank] = useState([]);
   const [currentBank, setCurrentBank] = useState(null);
-  console.log(currentBank, bank, "Current bank");
+  // console.log(currentBank, bank, "Current bank");
   const token =
     typeof window !== "undefined" && localStorage.getItem("accessToken");
   const fetchAccounts = async () => {
@@ -35,7 +35,7 @@ const EditRevenue = ({ open, selected, setOpen, fetchRev, setSelected }) => {
       .then((res) => res.json())
       .then(async (data) => {
         if (data.success) {
-          console.log(data);
+          // console.log(data);
           setbankLoading(false);
           await setCurrentBank(
             selected && selected.settlementAccount
@@ -106,7 +106,7 @@ const EditRevenue = ({ open, selected, setOpen, fetchRev, setSelected }) => {
       .catch((err) => console.log(err));
   };
   const handleDataChange = (data) => {
-    console.log(edited);
+    // console.log(edited);
     setEdited((state) => {
       return {
         ...state,
@@ -143,7 +143,7 @@ const EditRevenue = ({ open, selected, setOpen, fetchRev, setSelected }) => {
                     setCurrentBank({});
                     setLoading(false);
                     setEdited(null);
-                    console.log(selected);
+                    // console.log(selected);
                   }}
                 >
                   <Close />

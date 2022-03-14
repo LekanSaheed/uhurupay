@@ -140,7 +140,7 @@ const Graph = () => {
           console.log(data.error);
         }
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(err));
   };
 
   const convertId_Name = (_id, amount) => {
